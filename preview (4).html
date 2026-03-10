@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silent</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.18), transparent 30%),
+        linear-gradient(135deg, #020617, #0f172a, #111827, #1e1b4b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 120px 150px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1.5px 1.5px at 200px 80px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 320px 220px, rgba(255,255,255,0.75), transparent),
+        radial-gradient(1.5px 1.5px at 500px 120px, rgba(255,255,255,0.8), transparent);
+      background-size: 600px 300px;
+      opacity: 0.45;
+      animation: drift 18s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-40px); }
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.5;
+      animation: float 10s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .orb1 {
+      width: 260px;
+      height: 260px;
+      background: #38bdf8;
+      top: 7%;
+      left: 8%;
+    }
+
+    .orb2 {
+      width: 320px;
+      height: 320px;
+      background: #8b5cf6;
+      right: 8%;
+      bottom: 8%;
+      animation-delay: 2s;
+    }
+
+    .orb3 {
+      width: 220px;
+      height: 220px;
+      background: #22c55e;
+      left: 20%;
+      bottom: 12%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+      50% { transform: translateY(-24px) translateX(14px) scale(1.08); }
+    }
+
+    .grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      width: min(92%, 860px);
+      padding: 44px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.45),
+        0 0 80px rgba(56,189,248,0.08);
+      animation: rise 0.9s ease;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 26px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: #dbeafe;
+    }
+
+    .status {
+      font-size: 13px;
+      color: #93c5fd;
+      opacity: 0.9;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 0.95;
+      letter-spacing: -2.5px;
+      margin-bottom: 16px;
+      text-shadow: 0 0 24px rgba(255,255,255,0.08);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #a855f7, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: #dbeafe;
+      max-width: 540px;
+      margin-bottom: 26px;
+      opacity: 0.95;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(90deg, #0ea5e9, #6366f1);
+      box-shadow: 0 12px 30px rgba(56,189,248,0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 18px 38px rgba(56,189,248,0.36);
+    }
+
+    .btn-secondary {
+      color: white;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px) scale(1.03);
+      background: rgba(255,255,255,0.11);
+    }
+
+    .side-panel {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .panel-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: #93c5fd;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      margin-bottom: 16px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .stat-number {
+      font-size: 1.65rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .bottom {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .mini {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mini h3 {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      color: #e0f2fe;
+    }
+
+    .mini p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #94a3b8;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .card {
+        padding: 24px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="grid"></div>
+
+  <main class="card">
+    <div class="topbar">
+      <div class="pill">Silent</div>
+      <div class="status">Online • Locked In • Different</div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1><span class="gradient-text">Silent</span></h1>
+        <p class="subtitle">
+          Clean presence, strong mindset, and real experience. Built to stand out,
+          not blend in.
+        </p>
+
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="launchSite()">Launch</button>
+          <button class="btn btn-secondary" onclick="scrollToBottom()">Explore</button>
+        </div>
+      </div>
+
+      <aside class="side-panel">
+        <div class="panel-title">Profile Snapshot</div>
+
+        <div class="stat">
+          <div class="stat-number">200K+</div>
+          <div class="stat-label">People moderated</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number">15</div>
+          <div class="stat-label">Years old</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Locked in mindset</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="bottom" id="bottomSection">
+      <div class="mini">
+        <h3>Leadership</h3>
+        <p>Kind and hella patient</p>
+      </div>
+
+      <div class="mini">
+        <h3>Experience</h3>
+        <p>Moderated 200K</p>
+      </div>
+
+      <div class="mini">
+        <h3>Mindset</h3>
+        <p>Unlocked in</p>
+      </div>
+    </section>
+
+    <div class="footer"></div>
+  </main>
+
+  <script>
+    function launchSite() {
+      alert("I moderated 200K and I'm 15.");
+    }
+
+    function scrollToBottom() {
+      document.getElementById("bottomSection").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  </script>
+</body>
+</html>
