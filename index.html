@@ -6,9 +6,9 @@
   <title>Silent</title>
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
       font-family: Inter, Arial, sans-serif;
       cursor: none;
     }
@@ -18,28 +18,11 @@
       height: 100%;
       overflow: hidden;
       background: #000;
-      color: white;
+      color: #fff;
     }
 
     body {
       position: relative;
-    }
-
-    .cursor-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: white;
-      position: fixed;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow:
-        0 0 10px rgba(255,255,255,0.95),
-        0 0 20px rgba(255,255,255,0.8),
-        0 0 35px rgba(255,255,255,0.55);
     }
 
     canvas {
@@ -51,6 +34,23 @@
       background: #000;
     }
 
+    .cursor-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow:
+        0 0 10px rgba(255,255,255,0.95),
+        0 0 22px rgba(255,255,255,0.8),
+        0 0 40px rgba(255,255,255,0.4);
+    }
+
     .enter-screen {
       position: fixed;
       inset: 0;
@@ -58,7 +58,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.92);
+      background: rgba(0,0,0,0.9);
       backdrop-filter: blur(4px);
       transition: opacity 0.8s ease, visibility 0.8s ease;
     }
@@ -70,13 +70,14 @@
     }
 
     .enter-text {
-      font-size: clamp(1.2rem, 3vw, 2rem);
-      letter-spacing: 0.08em;
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
       color: #fff;
+      letter-spacing: 0.08em;
       text-shadow:
         0 0 10px rgba(255,255,255,0.9),
-        0 0 22px rgba(255,255,255,0.55);
+        0 0 22px rgba(255,255,255,0.45);
       animation: pulse 1.8s ease-in-out infinite;
+      user-select: none;
     }
 
     @keyframes pulse {
@@ -111,7 +112,7 @@
 
     .wrap {
       width: 100%;
-      max-width: 540px;
+      max-width: 620px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -119,74 +120,71 @@
     }
 
     .name {
-      font-size: clamp(3.3rem, 8vw, 5rem);
+      font-size: clamp(3.5rem, 8vw, 5.5rem);
       font-weight: 800;
       line-height: 1;
       margin-bottom: 10px;
-      color: #fff;
       text-shadow:
-        0 0 10px rgba(255,255,255,0.95),
-        0 0 24px rgba(255,255,255,0.6),
-        0 0 42px rgba(255,255,255,0.28);
+        0 0 10px rgba(255,255,255,0.9),
+        0 0 24px rgba(255,255,255,0.5),
+        0 0 45px rgba(255,255,255,0.2);
     }
 
     .bio {
-      font-size: 1.55rem;
+      font-size: 1.45rem;
       font-weight: 700;
-      color: #f4f4f4;
-      margin-bottom: 16px;
-      text-shadow: 0 0 10px rgba(255,255,255,0.2);
+      margin-bottom: 18px;
+      color: #f2f2f2;
     }
 
     .location {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 1.1rem;
-      color: #e8e8e8;
-      margin-bottom: 30px;
+      font-size: 1.05rem;
+      color: #efefef;
+      margin-bottom: 28px;
       opacity: 0.95;
     }
 
     .profile-card {
       width: 100%;
-      max-width: 420px;
+      max-width: 430px;
       display: flex;
       align-items: center;
       gap: 16px;
       padding: 18px;
       border-radius: 28px;
-      background: rgba(20,20,20,0.74);
+      background: rgba(18,18,18,0.72);
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow:
-        0 0 0 1px rgba(255,255,255,0.03) inset,
-        0 10px 30px rgba(0,0,0,0.55);
+        0 10px 30px rgba(0,0,0,0.55),
+        inset 0 0 0 1px rgba(255,255,255,0.03);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      margin-bottom: 28px;
+      margin-bottom: 26px;
     }
 
     .avatar {
-      width: 86px;
-      height: 86px;
+      width: 84px;
+      height: 84px;
       border-radius: 50%;
       background: #050505;
-      border: 1px solid rgba(255,255,255,0.05);
-      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.06);
       position: relative;
-      overflow: hidden;
+      flex-shrink: 0;
     }
 
     .avatar::after {
       content: "";
       position: absolute;
-      bottom: 6px;
-      right: 6px;
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: #ff4d5a;
-      box-shadow: 0 0 10px rgba(255,77,90,0.7);
+      background: #ff4f5f;
+      bottom: 6px;
+      right: 6px;
+      box-shadow: 0 0 10px rgba(255,79,95,0.75);
     }
 
     .profile-info {
@@ -195,24 +193,24 @@
     }
 
     .username {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      color: #fff;
       margin-bottom: 6px;
+      color: #fff;
     }
 
     .status {
       font-size: 0.98rem;
-      color: #c8c8c8;
+      color: #d2d2d2;
       opacity: 0.85;
     }
 
     .socials {
       display: flex;
       gap: 16px;
-      margin-bottom: 26px;
       justify-content: center;
       flex-wrap: wrap;
+      margin-bottom: 24px;
     }
 
     .social-btn {
@@ -232,6 +230,13 @@
         0 0 30px rgba(255,255,255,0.08);
       transition: 0.2s ease;
       backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      outline: none;
+    }
+
+    button.social-btn {
+      appearance: none;
+      -webkit-appearance: none;
     }
 
     .social-btn:hover {
@@ -246,32 +251,32 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      font-size: 1rem;
       color: #f0f0f0;
-      font-size: 1.05rem;
+      opacity: 0.92;
       margin-bottom: 18px;
-      opacity: 0.9;
     }
 
     .player {
       width: 100%;
-      max-width: 620px;
+      max-width: 720px;
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .cover {
-      width: 82px;
-      height: 82px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.12);
+      width: 84px;
+      height: 84px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.4rem;
       color: white;
-      border: 1px solid rgba(255,255,255,0.08);
       flex-shrink: 0;
     }
 
@@ -281,7 +286,7 @@
     }
 
     .song {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
       margin-bottom: 6px;
     }
@@ -290,9 +295,8 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      color: #d9d9d9;
+      color: #d8d8d8;
       font-size: 0.95rem;
-      margin-top: 4px;
     }
 
     .bar {
@@ -307,40 +311,35 @@
     .bar::after {
       content: "";
       position: absolute;
-      top: 0;
       left: 0;
+      top: 0;
       height: 100%;
       width: 22%;
       background: #fff;
       border-radius: 999px;
-      box-shadow: 0 0 12px rgba(255,255,255,0.85);
+      box-shadow: 0 0 12px rgba(255,255,255,0.8);
     }
 
     .controls {
       display: flex;
       align-items: center;
       gap: 14px;
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       color: white;
-      margin-left: 12px;
-    }
-
-    .control-btn {
-      opacity: 0.95;
+      margin-left: 8px;
       user-select: none;
     }
 
-    .small-glow {
+    .control-btn {
       text-shadow:
-        0 0 8px rgba(255,255,255,0.8),
-        0 0 18px rgba(255,255,255,0.35);
+        0 0 8px rgba(255,255,255,0.75),
+        0 0 18px rgba(255,255,255,0.25);
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
       .player {
         flex-direction: column;
         align-items: stretch;
-        text-align: center;
       }
 
       .player-main {
@@ -352,8 +351,8 @@
         margin-left: 0;
       }
 
-      .profile-card {
-        max-width: 100%;
+      .timeline-row {
+        justify-content: center;
       }
     }
   </style>
@@ -385,14 +384,14 @@
       </div>
 
       <div class="socials">
-        <a class="social-btn" href="#" title="Discord">💬</a>
-        <a class="social-btn" href="#" title="Cash App">$</a>
-        <a class="social-btn" href="#" title="YouTube">▶</a>
+        <a class="social-btn" href="https://discord.com/users/YOUR_DISCORD_ID" target="_blank" rel="noopener noreferrer" title="Discord">💬</a>
+        <button class="social-btn" onclick="noLink('Cash App')" title="Cash App">$</button>
+        <button class="social-btn" onclick="noLink('YouTube')" title="YouTube">▶</button>
       </div>
 
       <div class="views">
-        <span>👁</span>
-        <span>334</span>
+        <span></span>
+        <span></span>
       </div>
 
       <div class="player">
@@ -408,15 +407,19 @@
         </div>
 
         <div class="controls">
-          <span class="control-btn small-glow">⏮</span>
-          <span class="control-btn small-glow">⏸</span>
-          <span class="control-btn small-glow">⏭</span>
+          <span class="control-btn">⏮</span>
+          <span class="control-btn">⏸</span>
+          <span class="control-btn">⏭</span>
         </div>
       </div>
     </div>
   </main>
 
   <script>
+    function noLink(name) {
+      alert("I don't have " + name + " yet.");
+    }
+
     const cursor = document.getElementById("cursorDot");
 
     window.addEventListener("mousemove", (e) => {
@@ -428,7 +431,7 @@
     const ctx = canvas.getContext("2d");
 
     let stars = [];
-    let starCount = 220;
+    const starCount = 220;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -461,6 +464,7 @@
         ctx.fill();
 
         star.y += star.speed;
+
         if (star.y > canvas.height) {
           star.y = -2;
           star.x = Math.random() * canvas.width;
